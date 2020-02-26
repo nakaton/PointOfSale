@@ -5,7 +5,11 @@ namespace SalesStuffLibrary
 {
     public class Utils
     {
-
+        /*
+         * Method: SetDefaultPricing
+         * Description: When Terminal start up, set default pricing for product
+         * Return: void
+         */
         public static void SetDefaultPricing(PointOfSaleTerminal terminal)
         {
             Console.WriteLine("Default Pricing:");
@@ -34,9 +38,10 @@ namespace SalesStuffLibrary
             Console.WriteLine();
         }
 
+
         /*
          * Method: CalculateItemAmount
-         * Description: Calculate the Amount of orderItem (Separated by bulk amount and unit amount)
+         * Description: Calculate the Amount of orderItem (based on per-unit or volume prices as applicable)
          * Return: OrderItemAmount
          */
         public static Decimal CalculateItemAmount(OrderItem orderItem, ProductInfo productInfo)
@@ -60,6 +65,12 @@ namespace SalesStuffLibrary
             }
         }
 
+
+        /*
+         * Method: DecimalArgumentOutOfRangeCheck
+         * Description: Common decimal check for pricing
+         * Return: void
+         */
         public static void DecimalArgumentOutOfRangeCheck(decimal argument, string name)
         {
             if (argument < 0)
@@ -68,6 +79,12 @@ namespace SalesStuffLibrary
             }
         }
 
+
+        /*
+         * Method: IntArgumentOutOfRangeCheck
+         * Description: Common int check for Qty
+         * Return: void
+         */
         public static void IntArgumentOutOfRangeCheck(int argument, string name)
         {
             if (argument < 0)
@@ -76,7 +93,13 @@ namespace SalesStuffLibrary
             }
         }
 
-        public static void ProductExistCheck(String productCode, Dictionary<string, ProductInfo> priceMap)
+
+        /*
+         * Method: isProductExist
+         * Description: Product exist check
+         * Return: void
+         */
+        public static void isProductExist(String productCode, Dictionary<string, ProductInfo> priceMap)
         {
             
             if (!priceMap.ContainsKey(productCode))

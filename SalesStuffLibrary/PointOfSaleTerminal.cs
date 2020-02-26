@@ -21,6 +21,8 @@ namespace SalesStuffLibrary
                 ProductInfo productInfo = new ProductInfo(productCode, unit, unitPrice, bulkPrice, bulkUnitQty);
                 Console.WriteLine(productInfo.ToString());
 
+                // Remove inactive price and add in new price
+                this.PriceMap.Remove(productCode);
                 this.PriceMap.Add(productCode, productInfo);
             }
         }
@@ -34,7 +36,7 @@ namespace SalesStuffLibrary
         public void ScanProduct(string productCode)
         {
             // Check scanned product is exist or not
-            Utils.ProductExistCheck(productCode, this.PriceMap);
+            Utils.isProductExist(productCode, this.PriceMap);
 
             // Check whether item already contained in Order List
             bool isContained = false;
@@ -56,8 +58,8 @@ namespace SalesStuffLibrary
 
 
         /*
-         * Method: ScanProduct
-         * Description: Add orderItem into OderList or increase the Qty when scan items
+         * Method: CalculateTotal
+         * Description: Calculate the check out Order Amount
          * Return: OrderAmount
          */
         public decimal CalculateTotal()
@@ -75,7 +77,7 @@ namespace SalesStuffLibrary
 
         /*
          * Method: ClearForNewOrder
-         * Description: Clear previous OrderList and OrderAmount, prepare for next Order come in.
+         * Description: Clear previous OrderList, prepare for next Order come in.
          * Return: void
          */
         public void ClearForNewOrder()

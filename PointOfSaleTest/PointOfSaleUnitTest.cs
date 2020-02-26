@@ -54,7 +54,7 @@ namespace PointOfSaleTest
         [Fact]
         public void TestForRandomScanAmount()
         {
-            Console.WriteLine("Point Of Sale Terminal Initialization: ");
+            Console.WriteLine("### Point Of Sale Terminal Service UP ###");
 
             var terminal = new PointOfSaleTerminal();
             // Set default pricing for Products
@@ -79,7 +79,7 @@ namespace PointOfSaleTest
         [Fact]
         public void TestForSequenceScanAmount()
         {
-            Console.WriteLine("Point Of Sale Terminal Initialization: ");
+            Console.WriteLine("### Point Of Sale Terminal Service UP ###");
 
             var terminal = new PointOfSaleTerminal();
             // Set default pricing for Products
@@ -104,7 +104,7 @@ namespace PointOfSaleTest
         [Fact]
         public void TestForNormalPriceAmount()
         {
-            Console.WriteLine("Point Of Sale Terminal Initialization: ");
+            Console.WriteLine("### Point Of Sale Terminal Service UP ###");
 
             var terminal = new PointOfSaleTerminal();
             // Set default pricing for Products
@@ -121,6 +121,31 @@ namespace PointOfSaleTest
             Console.WriteLine($"Amount of Random Order: {total}");
 
             Assert.Equal(7.25m, total);
+        }
+
+        [Fact]
+        public void TestForAmountAfterPriceChange()
+        {
+            Console.WriteLine("### Point Of Sale Terminal Service UP ###");
+
+            var terminal = new PointOfSaleTerminal();
+            // Set default pricing for Products
+            Utils.SetDefaultPricing(terminal);
+
+            // Order without using BulkPrice
+            terminal.ScanProduct("A");
+            terminal.ScanProduct("B");
+            terminal.ScanProduct("C");
+            terminal.ScanProduct("D");
+
+            // Change the price of Product 'B'
+            terminal.SetPricing("B", "item", 5.00m, 0, 0);
+
+            var total = terminal.CalculateTotal();
+
+            Console.WriteLine($"Amount of Random Order: {total}");
+
+            Assert.Equal(8.00m, total);
         }
     }
 }

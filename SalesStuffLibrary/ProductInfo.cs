@@ -11,6 +11,7 @@ namespace SalesStuffLibrary
 
         public ProductInfo(String productCode, String unit, Decimal unitPrice, Decimal bulkPrice, Int16 bulkUnitQty)
         {
+            // Value Check
             Utils.DecimalArgumentOutOfRangeCheck(unitPrice, "UnitPrice");
             Utils.DecimalArgumentOutOfRangeCheck(bulkPrice, "BulkPrice");
             Utils.IntArgumentOutOfRangeCheck(bulkUnitQty, "BulkUnitQty");
