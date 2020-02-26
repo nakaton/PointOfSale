@@ -7,7 +7,7 @@ namespace PointOfSale
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Point Of Sale Terminal Initialization: ");
+            Console.WriteLine("### Point Of Sale Terminal Service UP ###");
 
             var terminal = new PointOfSaleTerminal();
             // Set default pricing for Products
@@ -22,7 +22,7 @@ namespace PointOfSale
             terminal.ScanProduct("B");
             terminal.ScanProduct("A");
 
-            Console.WriteLine($"Amount of Order 1: {terminal.CalculateTotal()}");
+            Console.WriteLine($"Amount of Order 'ABCDABA': ${terminal.CalculateTotal()}");
 
             //Prepare for next order
             terminal.ClearForNewOrder();
@@ -36,7 +36,7 @@ namespace PointOfSale
             terminal.ScanProduct("C");
             terminal.ScanProduct("C");
 
-            Console.WriteLine($"Amount of Order 2: {terminal.CalculateTotal()}");
+            Console.WriteLine($"Amount of Order 'CCCCCCC': ${terminal.CalculateTotal()}");
 
             //Prepare for next order
             terminal.ClearForNewOrder();
@@ -47,7 +47,7 @@ namespace PointOfSale
             terminal.ScanProduct("C");
             terminal.ScanProduct("D");
 
-            Console.WriteLine($"Amount of Order 3: {terminal.CalculateTotal()}");
+            Console.WriteLine($"Amount of Order 'ABCD': ${terminal.CalculateTotal()}");
         }
     }
 }

@@ -5,6 +5,35 @@ namespace SalesStuffLibrary
 {
     public class Utils
     {
+
+        public static void SetDefaultPricing(PointOfSaleTerminal terminal)
+        {
+            Console.WriteLine("Default Pricing:");
+            // Set default pricing for Products
+            foreach (int product in Enum.GetValues(typeof(Products)))
+            {
+                switch (product)
+                {
+                    case 1:
+                        terminal.SetPricing("A", "item", 1.25m, 3.00m, 3);
+                        break;
+                    case 2:
+                        terminal.SetPricing("B", "item", 4.25m, 0, 0);
+                        break;
+                    case 3:
+                        terminal.SetPricing("C", "pack", 1.00m, 5.00m, 6);
+                        break;
+                    case 4:
+                        terminal.SetPricing("D", "item", 0.75m, 0, 0);
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+            Console.WriteLine();
+        }
+
         /*
          * Method: CalculateItemAmount
          * Description: Calculate the Amount of orderItem (Separated by bulk amount and unit amount)
@@ -22,41 +51,12 @@ namespace SalesStuffLibrary
                 bulkAmount = (orderItem.OrderQty / productInfo.BulkUnitQty) * productInfo.BulkPrice;
                 // Amount for Unit sales
                 unitAmount = (orderItem.OrderQty % productInfo.BulkUnitQty) * productInfo.UnitPrice;
+
+                return (bulkAmount + unitAmount);
             }
             else
             {
                 return orderItem.OrderQty * productInfo.UnitPrice;
-            }
-
-            return (bulkAmount + unitAmount);
-        }
-
-        public static void SetDefaultPricing(PointOfSaleTerminal terminal)
-        {
-            // Set default pricing for Products
-            foreach (int product in Enum.GetValues(typeof(Products)))
-            {
-                ProductInfo productInfo = null;
-                switch (product)
-                {
-                    case 1:
-                        productInfo = new ProductInfo("A", "item", 1.25m, 3.00m, 3);
-                        break;
-                    case 2:
-                        productInfo = new ProductInfo("B", "item", 4.25m, 0, 0);
-                        break;
-                    case 3:
-                        productInfo = new ProductInfo("C", "pack", 1.00m, 5.00m, 6);
-                        break;
-                    case 4:
-                        productInfo = new ProductInfo("D", "item", 0.75m, 0, 0);
-                        break;
-                    default:
-                        break;
-                }
-                Console.WriteLine(productInfo.ToString());
-
-                terminal.SetPricing(productInfo);
             }
         }
 
@@ -76,12 +76,12 @@ namespace SalesStuffLibrary
             }
         }
 
-        public static void ProductExistCheck(String productCode, PointOfSaleTerminal terminal)
+        public static void ProductExistCheck(String productCode, Dictionary<string, ProductInfo> priceMap)
         {
             
-            if (terminal.PriceMap.ContainsKey(productCode))
+            if (!priceMap.ContainsKey(productCode))
             {
-                throw new KeyNotFoundException("Product " + productCode + " is not exist in Price List");
+                throw new KeyNotFoundException("Product '" + productCode + "' is not exist in Price List");
             }
         }
 

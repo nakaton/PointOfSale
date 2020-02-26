@@ -25,8 +25,8 @@ namespace SalesStuffLibrary
         public override string ToString()
         {
             return this.ProductCode + " | " +
-                this.UnitPrice.ToString() + " for " + this.Unit + " | " +
-                this.BulkPrice.ToString() + " for " + this.BulkUnitQty.ToString()
+                "$" + this.UnitPrice.ToString() + " for " + this.Unit + " | " +
+                "$" + this.BulkPrice.ToString() + " for " + this.BulkUnitQty.ToString()
                 + " " + this.Unit + " | ";
 
         }

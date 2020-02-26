@@ -7,7 +7,6 @@ namespace SalesStuffLibrary
     {
         public Dictionary<string, ProductInfo> PriceMap { get; set; }
         public List<OrderItem> OrderList { get; set; }
-        public decimal OrderAmount { get; set; }
 
 
         /*
@@ -15,11 +14,14 @@ namespace SalesStuffLibrary
          * Description: Set pricing when termianl start
          * Return: void
          */
-        public void SetPricing(ProductInfo productInfo)
+        public void SetPricing(String productCode, String unit, Decimal unitPrice, Decimal bulkPrice, Int16 bulkUnitQty)
         {
-            if(productInfo.UnitPrice > 0)
+            if(unitPrice > 0)
             {
-                this.PriceMap.Add(productInfo.ProductCode, productInfo);
+                ProductInfo productInfo = new ProductInfo(productCode, unit, unitPrice, bulkPrice, bulkUnitQty);
+                Console.WriteLine(productInfo.ToString());
+
+                this.PriceMap.Add(productCode, productInfo);
             }
         }
 
@@ -31,7 +33,8 @@ namespace SalesStuffLibrary
          */
         public void ScanProduct(string productCode)
         {
-            Utils.ProductExistCheck(productCode, this);
+            // Check scanned product is exist or not
+            Utils.ProductExistCheck(productCode, this.PriceMap);
 
             // Check whether item already contained in Order List
             bool isContained = false;
@@ -59,12 +62,14 @@ namespace SalesStuffLibrary
          */
         public decimal CalculateTotal()
         {
+            decimal orderAmount = 0.0m;
+
             foreach(var orderItem in this.OrderList)
             {
-                this.OrderAmount += Utils.CalculateItemAmount(orderItem, this.PriceMap[orderItem.ProductCode]);
+                orderAmount += Utils.CalculateItemAmount(orderItem, this.PriceMap[orderItem.ProductCode]);
             }
 
-            return this.OrderAmount;
+            return orderAmount;
         }
 
 
@@ -76,22 +81,19 @@ namespace SalesStuffLibrary
         public void ClearForNewOrder()
         {
             this.OrderList = new List<OrderItem>();
-            this.OrderAmount = 0;
         }
 
 
-        public PointOfSaleTerminal(Dictionary<string, ProductInfo> priceMap, List<OrderItem> orderItems, decimal orderAmount)
+        public PointOfSaleTerminal(Dictionary<string, ProductInfo> priceMap, List<OrderItem> orderItems)
         {
             this.PriceMap = priceMap;
             this.OrderList = orderItems;
-            this.OrderAmount = orderAmount;
         }
 
         public PointOfSaleTerminal()
         {
             this.PriceMap = new Dictionary<string, ProductInfo>();
             this.OrderList = new List<OrderItem>();
-            this.OrderAmount = 0;
         }
     }
 }
