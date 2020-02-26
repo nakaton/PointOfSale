@@ -36,7 +36,7 @@ namespace SalesStuffLibrary
         public void ScanProduct(string productCode)
         {
             // Check scanned product is exist or not
-            Utils.isProductExist(productCode, this.PriceMap);
+            Utils.IsProductExist(productCode, this.PriceMap);
 
             // Check whether item already contained in Order List
             bool isContained = false;

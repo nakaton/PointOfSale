@@ -95,11 +95,11 @@ namespace SalesStuffLibrary
 
 
         /*
-         * Method: isProductExist
+         * Method: IsProductExist
          * Description: Product exist check
          * Return: void
          */
-        public static void isProductExist(String productCode, Dictionary<string, ProductInfo> priceMap)
+        public static void IsProductExist(String productCode, Dictionary<string, ProductInfo> priceMap)
         {
             
             if (!priceMap.ContainsKey(productCode))
